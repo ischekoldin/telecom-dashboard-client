@@ -1,0 +1,29 @@
+table {
+  table-layout: fixed;
+  margin: 20px auto;
+  width: 70%;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: rgba(4, 185, 176, 0.2);
+}
+
+td, th {
+  text-align: center;
+  padding: 10px;
+  border: 2px solid #ffffff;
+}
+
+table,
+td,
+th {
+  border-collapse: collapse;
+}
+
+tfoot {
+  text-align: center;
+}

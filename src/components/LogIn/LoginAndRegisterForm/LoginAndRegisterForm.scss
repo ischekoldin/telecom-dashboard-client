@@ -1,0 +1,45 @@
+
+.card-header {
+  background-color: rgba(70, 54, 187, 0.29);
+}
+
+.login-and-register-form {
+
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-group-row {
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-content: center;
+}
+
+
+form input[type=password], input[type=email], input[type=text] {
+  height: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.form label {
+  padding-bottom: 0.3rem;
+}
+
+.form input[type=checkbox] {
+  flex: 1 0 20%;
+}
+
+.form-button {
+  background-color: rgba(4, 185, 176, 0.53);
+  border: 1px solid #1a9da5;
+  border-radius: 5px;
+  flex: 1 1 40%;
+  height: 1.5rem;
+  width: 4rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}

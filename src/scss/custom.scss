@@ -1,0 +1,36 @@
+
+$secondary: #CFC0D3;
+$primary: #4636bb;
+
+$font-family-sans-serif: 'Montserrat', 'Roboto', sans-serif;
+
+
+
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: "Montserrat", "Roboto", sans-serif;
+  font-size: 1em;
+}
+
+#root {
+
+}
+
+
+.btn-outline-light {
+  color: #000000;
+  border: none;
+}
+
+.btn-outline-light:hover{
+  color: $primary;
+  border: none;
+}
+
+body {
+  overflow: hidden;
+}
+
+@import "../components/LogIn/LogIn";
