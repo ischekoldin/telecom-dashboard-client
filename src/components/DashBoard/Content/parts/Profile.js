@@ -11,6 +11,11 @@ const Profile = ({records}) => {
         city_name,
         registration_date} = records.content;
 
+    const toggleFieldEditing = (event) => {
+
+    };
+
+
     return (
         <>
             <div>
@@ -19,9 +24,9 @@ const Profile = ({records}) => {
             <div>
                 <ul>
                     <li><h2>{company_name}</h2></li>
-                    <li>Имя: {name}</li>
+                    <li>Имя: <div onClick={toggleFieldEditing} id="profile-name">{name}</div></li>
                     <li>Ваш баланс: {account_balance}</li>
-                    <li>Город: {city_name}</li>
+                    <li>Город: <div id="profile-city-name">{city_name}</div></li>
                     <li>Дата регистрации: {registration_date}</li>
                 </ul>
             </div>

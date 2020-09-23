@@ -24,6 +24,9 @@ const Navbar = () => {
         if (target === "profile") {
             history.push ("/dashboard?s=profile");
         }
+        if (target === "bills") {
+            history.push ("/dashboard?s=bills&p=1");
+        }
 
     };
 
@@ -32,10 +35,10 @@ const Navbar = () => {
     return (
 
         <nav className="navbar">
-            <p>Navbar</p>
             <button onClick={handleClick} type="button" id="profile">Профиль</button>
             <button onClick={handleClick} type="button" id="lines">Линии</button>
             <button onClick={handleClick} type="button" id="calls">Звонки</button>
+            <button onClick={handleClick} type="button" id="bills">Счета</button>
         </nav>
 
     )

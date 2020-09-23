@@ -1,8 +1,14 @@
 table {
+  font-size: 0.9rem;
   table-layout: fixed;
   margin: 20px auto;
   width: 70%;
 }
+
+.text-left {
+  text-align: left;
+}
+
 
 tr:nth-child(even) {
   background-color: #f2f2f2;
@@ -12,9 +18,16 @@ tr:hover {
   background-color: rgba(4, 185, 176, 0.2);
 }
 
+.text-small {
+  font-size: small;
+}
+
+//td {
+//  margin-top: 0.2rem;
+//}
+
 td, th {
   text-align: center;
-  padding: 10px;
   border: 2px solid #ffffff;
 }
 
@@ -29,6 +42,68 @@ tfoot {
 }
 
 section {
+  height: 100%;
   display: flex;
   flex-direction: row;
+}
+
+.table-container {
+  height: 100%;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+
+
+.page-navigator {
+
+  button {
+
+
+
+    :active {
+      box-shadow: inset 0 3px 4px hsla(0, 0%, 0%, 0.2);
+    }
+
+    margin: 0;
+    padding: 0.3rem 1rem;
+    border: 0;
+    border-radius: 0.317rem;
+    background-color: rgba(4, 185, 176, 0.21);
+    color: #373737;
+    cursor: pointer;
+    font-size: 1rem;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+
+    :hover {
+      background-color: rgba(4, 185, 176, 0.41);
+    }
+
+    button:hover {
+      background-color: rgba(4, 185, 176, 0.41);
+    }
+
+  }
+
+
+
+  .page-number {
+    margin-right: 1rem;
+  }
+
+  :first-child {
+    margin-left: auto;
+  }
+
+  :last-child {
+    margin-right: auto;
+  }
+
+  button {
+    margin: 0 0.1rem;
+  }
+
 }

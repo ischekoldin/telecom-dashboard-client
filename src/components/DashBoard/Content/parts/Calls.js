@@ -1,47 +1,41 @@
 import React from "react";
+import PageNavigator from "./PageNavigator";
 
-const Calls = ({records}) => {
+const Calls = ({records, getSearchVariables}) => {
 
-    const getSearchVariables = ((variable) => new URLSearchParams(window.location.search).get(variable));
-
-    const mapPageLinks = (number) => {
-        const arr = ["<td>"];
-        for (let i = 0; i < number; i++) {
-            arr.push(<div id={i + 1} > i + 1 </div>);
-        }
-        arr.push("</td>");
-        return arr
-    };
 
     return (
-        <table>
-            <thead>
-            <tr>
-                <th>Линия</th>
-                <th>Направление</th>
-                <th>Дата</th>
-                <th>Продолжительность</th>
-                <th>Стоимость</th>
-            </tr>
-            </thead>
-            <tbody>
-            {records.content.map(record =>
-                <tr key={record.id}>
-                    <td>{record.line_type}</td>
-                    <td>{record.calls_incoming
-                        ? `Входящий ${record.incoming_cost}`
-                        : `Исходящий ${record.outgoing_cost}`} р./мин.</td>
-                    <td>{record.start_time}</td>
-                    <td>{record.duration_secs}</td>
-                    <td>{record.call_cost}</td>
-                </tr>)}
+        <div className="table-container">
+            <table>
+                <thead>
                 <tr>
-                    <td>Текущая страница: {getSearchVariables("p")}</td>
-                    {records.tabsCount > 1 && mapPageLinks(records.tabsCount)}
+                    <th>Линия</th>
+                    <th>Направление</th>
+                    <th>Дата</th>
+                    <th>Продолжительность</th>
+                    <th>Стоимость</th>
                 </tr>
-            </tbody>
+                </thead>
+                <tbody>
+                {records.content.map(record =>
+                    <tr key={record.id + record.call_cost}>
+                        <td>{record.line_type}</td>
+                        <td>{record.calls_incoming
+                            ? `Входящий ${record.incoming_cost}`
+                            : `Исходящий ${record.outgoing_cost}`} р./мин.</td>
+                        <td>{record.start_time}</td>
+                        <td>{record.duration_secs}</td>
+                        <td>{record.call_cost}</td>
+                    </tr>)}
+                </tbody>
+            </table>
 
-        </table>
+            {records.tabsCount > 1 &&
+                <PageNavigator
+                    pages={records.tabsCount}
+                    getSearchVariables={getSearchVariables}
+                />}
+        </div>
     )
 };
 

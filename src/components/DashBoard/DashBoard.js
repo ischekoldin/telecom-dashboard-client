@@ -2,7 +2,6 @@ import React, {useState, useEffect, useCallback} from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import queryString from "querystring";
 
 import Content from "./Content/Content";
 
@@ -24,8 +23,10 @@ const DashBoard = ({ location }) => {
     const history = useHistory();
 
 
-    const getSearchVariables = ((variable) => new URLSearchParams(location.search).get(variable));
 
+    const getSearchVariables = useCallback ( (variable) => {
+        return new URLSearchParams(window.location.search).get(variable)
+    },[]);
 
 
     const CONFIG_FETCH_RECORDS = {
@@ -92,7 +93,21 @@ const DashBoard = ({ location }) => {
 
         try {
 
-            if (records.section !== getSearchVariables("s")) {
+            if (records.section === getSearchVariables("s")) {
+
+                if (records.tab && records.tab !== getSearchVariables("p")) {
+                    const fetchRecordsResponse = await axios(CONFIG_FETCH_RECORDS);
+
+                    if (fetchRecordsResponse.data) {
+                        dispatch({
+                            "type": "records/fetch",
+                            "payload": fetchRecordsResponse.data
+                        });
+                    }
+                }
+
+
+            } else {
                 const fetchRecordsResponse = await axios(CONFIG_FETCH_RECORDS);
 
                 if (fetchRecordsResponse.data) {
@@ -109,7 +124,7 @@ const DashBoard = ({ location }) => {
             refreshAccessToken();
         }
 
-    },[CONFIG_FETCH_RECORDS, refreshAccessToken, dispatch, getSearchVariables, records.section]);
+    },[CONFIG_FETCH_RECORDS, refreshAccessToken, dispatch, getSearchVariables, records]);
 
 
     useEffect(() => {
@@ -184,7 +199,7 @@ const DashBoard = ({ location }) => {
                 <Header />
                 <Navbar />
                 {records.content &&
-                    <Content records={records} />}
+                    <Content records={records} getSearchVariables={getSearchVariables} />}
                 <Footer />
             </div>
 

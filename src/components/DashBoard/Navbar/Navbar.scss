@@ -3,3 +3,18 @@ nav {
   flex-direction: row;
   width: 100%;
 }
+
+.navbar {
+
+  :first-child {
+    margin-left: auto;
+  }
+
+  :last-child {
+    margin-right: auto;
+  }
+
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
