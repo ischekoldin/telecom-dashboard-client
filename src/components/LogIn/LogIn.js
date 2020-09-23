@@ -13,6 +13,7 @@ const LogIn = () => {
 
 
     const ENDPOINT = useSelector(state => state.endpoint);
+    const dispatch = useDispatch();
     const [isRegisterForm, setIsRegisterForm] =useState(false);
     const [nameValue, setNameValue] = useState('');
     const [emailValue, setEmailValue] = useState('');
@@ -31,16 +32,16 @@ const LogIn = () => {
     };
 
     const CONFIG_LOGIN = {
-        method: 'post',
+        method: "post",
         url: `${ENDPOINT}/login`,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
         data: { name: nameValue, password: passwordValue, rememberMe: rememberMeValue },
         withCredentials: true
     };
 
 
     const CONFIG_SIGNUP = {
-        method: 'post',
+        method: "post",
         url: `${ENDPOINT}/signup`,
         data: { email: emailValue, password: passwordValue }
     };
@@ -106,14 +107,23 @@ const LogIn = () => {
             try {
                 response = await axios(CONFIG_LOGIN);
 
+                const date = new Date();
+                date.setTime(date.getTime()+(14*24*60*60*1000));
+                document.cookie = `telecom-dashboard-user-name=${nameValue}; expires=${date}; sameSite=lax`;
+
                 if (rememberMeValue) {
-                    let date = new Date();
-                    date.setTime(date.setTime(date.getTime()+(14*24*60*60*1000)));
                     document.cookie = `telecom-dashboard-remember-me; expires=${date}`;
                 }
 
+
+                dispatch({
+                    "type": "auth/setUserName",
+                    "payload": nameValue
+                });
+
                 history.push({
-                    pathname: '/dashboard',
+                    pathname: "/dashboard",
+                    search: "s=profile",
                     state: {
                         token: response.data.accessToken,
                     }
@@ -131,12 +141,17 @@ const LogIn = () => {
         refreshToken().then(
             (newAccessToken) => {
                 if (newAccessToken) {
+
+                    const date = new Date();
+                    date.setTime(date.getTime()+(14*24*60*60*1000));
+                    document.cookie = `telecom-dashboard-user-name=${newAccessToken.data.username}; expires=${date}; sameSite=lax`;
+
                     history.push({
-                        pathname: '/dashboard',
+                        pathname: "/dashboard",
+                        search: "s=profile",
                         state:
                             {
                                 token: newAccessToken.data.accessToken,
-                                username: newAccessToken.data.name
                             }
                     });
                 }

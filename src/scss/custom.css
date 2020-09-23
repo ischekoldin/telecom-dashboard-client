@@ -1,6 +1,9 @@
-#root {
+body {
   margin: 0;
   padding: 0;
+}
+
+#root {
   height: 100vh;
   font-family: "Montserrat", "Roboto", sans-serif;
   font-size: 1em;

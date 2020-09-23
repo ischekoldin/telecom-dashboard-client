@@ -8,14 +8,12 @@ import "./Content.scss";
 
 const Content = ({records}) => {
 
-    const [section, setSection] = useState("profile");
-
     return (
-            <>
-                {section === "profile" && <Profile records={records} />}
-                {section === "calls" && <Calls records={records} />}
-                {section === "lines" && <Lines records={records} />}
-            </>
+            <section>
+                {records.section === "profile" && <Profile records={records} />}
+                {records.section === "calls" && <Calls records={records} />}
+                {records.section === "lines" && <Lines records={records} />}
+            </section>
     )
 
 };

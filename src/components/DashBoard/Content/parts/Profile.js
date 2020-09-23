@@ -1,31 +1,31 @@
 import React from "react";
 
+import profilePic from "./profile_pic.jpeg";
+
 const Profile = ({records}) => {
 
-    return (
-        <table>
-            <thead>
-            <tr>
-                <th>Тип линии</th>
-                <th>CLI</th>
-                <th>Город</th>
-                <th>Тариф</th>
-                <th>Запись взонков</th>
-            </tr>
-            </thead>
-            <tbody>
-            {records.map(record =>
-                <tr key={record.id}>
-                    <td>{record.line_type}</td>
-                    <td>{record.line_cli}</td>
-                    <td>{record.line_city}</td>
-                    <td>{record.tariff_name}</td>
-                    <td>{record.line_recording === 1 ? "Да" : "нет"}</td>
-                </tr>)}
-            </tbody>
+    const {
+        company_name,
+        name,
+        account_balance,
+        city_name,
+        registration_date} = records.content;
 
-            <tfoot>Текущая страница: </tfoot>
-        </table>
+    return (
+        <>
+            <div>
+                <img src={profilePic} alt="profile"/>
+            </div>
+            <div>
+                <ul>
+                    <li><h2>{company_name}</h2></li>
+                    <li>Имя: {name}</li>
+                    <li>Ваш баланс: {account_balance}</li>
+                    <li>Город: {city_name}</li>
+                    <li>Дата регистрации: {registration_date}</li>
+                </ul>
+            </div>
+        </>
     )
 };
 

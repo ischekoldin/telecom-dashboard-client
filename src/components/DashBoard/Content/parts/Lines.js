@@ -1,7 +1,20 @@
 import React from "react";
 
-const Lines = ({records}) => {
+const Lines = ({records, location}) => {
 
+    const getSearchVariables = ((variable) => new URLSearchParams(window.location.search).get(variable));
+
+
+    const mapPageLinks = (number) => {
+        const arr = ["<td>"];
+        for (let i = 0; i < number; i++) {
+            arr.push(<div id={{i} + 1} >{{i} + 1}</div>);
+        }
+        arr.push("</td>");
+        return arr
+    };
+
+    console.log(records.content);
     return (
         <table>
             <thead>
@@ -14,7 +27,7 @@ const Lines = ({records}) => {
             </tr>
             </thead>
             <tbody>
-            {records.map(record =>
+            {records.content.map(record =>
                 <tr key={record.id}>
                     <td>{record.line_type}</td>
                     <td>{record.line_cli}</td>
@@ -22,9 +35,14 @@ const Lines = ({records}) => {
                     <td>{record.tariff_name}</td>
                     <td>{record.line_recording === 1 ? "Да" : "нет"}</td>
                 </tr>)}
+
+                <tr>
+                    <td>Текущая страница: {getSearchVariables("p")}</td>
+                    {records.tabsCount > 1 && mapPageLinks(records.tabsCount)}
+                </tr>
             </tbody>
 
-            <tfoot>Текущая страница: </tfoot>
+            <tfoot></tfoot>
         </table>
     )
 };

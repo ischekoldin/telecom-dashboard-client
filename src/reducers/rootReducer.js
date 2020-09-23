@@ -2,15 +2,15 @@
 const initialState = {
     endpoint: '',
     tokenRefreshRequired: false,
-    notes: [],
+    records: {},
     updateRequired: false,
     activeNote: {},
     updateActiveNote: false,
     addNote: false,
     deleteNote: false,
-    user: '',
+    username: '',
     logout: false,
-    isNoteOpen: true,
+    location: true,
     isSidePanelOpen: false // if true by default, querying the screen size doesn't work properly
 };
 
@@ -20,8 +20,8 @@ function rootReducer (state = initialState, action) {
             return { ...state, endpoint: action.payload };
         case 'auth/tokenRefreshRequired':
             return { ...state, tokenRefreshRequired: action.payload };
-        case 'notes/fetch':
-            return { ...state, notes: action.payload };
+        case 'records/fetch':
+            return { ...state, records: action.payload };
         case 'notes/updateRequired':
             return { ...state, updateRequired: action.payload };
         case 'notes/setActive':
@@ -34,8 +34,8 @@ function rootReducer (state = initialState, action) {
             return { ...state, activeNote: {} };
         case 'notes/delete':
             return { ...state, deleteNote: action.payload };
-        case 'user/set':
-            return { ...state, user: action.payload };
+        case 'auth/setUserName':
+            return { ...state, username: action.payload };
         case 'auth/logout':
             return { ...state, logout: action.payload };
         case 'responsiveness/isNoteOpen':

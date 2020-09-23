@@ -27,7 +27,7 @@ const App = () => {
 
         <Router>
             <Route path="/" exact component={LogIn}/>
-            <Route path="/dashboard" exact component={DashBoard}/>
+            <Route path="/:dashboard" component={DashBoard}/>
         </Router>
     )
 
