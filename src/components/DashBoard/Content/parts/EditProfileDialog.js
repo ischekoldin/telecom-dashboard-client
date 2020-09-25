@@ -68,19 +68,21 @@ const EditProfileDialog = ({company_name, user_name, city_name, user_email}) => 
         <>
             {show
 
-                ?   <div className="dialog-container">
-                        <form>
-                            <fieldset>
-                                <legend>Изменение профиля</legend>
-                                <label htmlFor="company-name">Название компании</label>
-                                <input value={companyNameValue} onChange={handleChange} type="text" id="company-name" required />
-                                <label htmlFor="user-name">Имя</label>
-                                <input value={userNameValue} onChange={handleChange} type="text" id="user-name" required />
-                                <label htmlFor="user-name">Город</label>
-                                <input value={cityNameValue} onChange={handleChange} type="text" id="city-name" required />
-                                <button type="button" onClick={handleSubmit}>Сохранить</button>
-                                <button type="button" onClick={toggleShow}>Закрыть</button>
-                            </fieldset>
+                ?   <div className="modal-container">
+                        <form className="modal">
+                                <div className="modal-head">Изменение профиля</div>
+                                <div className="modal-body flex-column">
+                                    <label htmlFor="company-name">Название компании</label>
+                                    <input value={companyNameValue} onChange={handleChange} type="text" id="company-name" required />
+                                    <label htmlFor="user-name">Имя</label>
+                                    <input value={userNameValue} onChange={handleChange} type="text" id="user-name" required />
+                                    <label htmlFor="user-name">Город</label>
+                                    <input value={cityNameValue} onChange={handleChange} type="text" id="city-name" required />
+                                    <div className="flex-row">
+                                        <button type="button" onClick={handleSubmit}>Сохранить</button>
+                                        <button type="button" onClick={toggleShow}>Закрыть</button>
+                                    </div>
+                                </div>
                         </form>
                     </div>
 

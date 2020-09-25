@@ -240,11 +240,10 @@ const DashBoard = ({ location }) => {
     },[logout, logOut]);
 
 
-    //
-    // if (!token) {
-    //     refreshAccessToken().then(history.push('/dashboard')).catch(history.push('/'));
-    //
-    // }
+    if (!token) {
+        refreshAccessToken().then(history.push('/dashboard?s=profile')).catch(history.push('/'));
+
+    }
 
 
     return (

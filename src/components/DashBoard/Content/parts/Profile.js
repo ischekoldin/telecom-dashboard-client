@@ -1,9 +1,11 @@
 import React from "react";
 import moment from "moment";
 
+
 import profilePic from "./profile_pic.jpeg";
 import EditProfileDialog from "./EditProfileDialog";
 import ModalDialog from "../ModalDialog/ModalDialog";
+import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
 
 const Profile = ({records}) => {
 
@@ -35,12 +37,12 @@ const Profile = ({records}) => {
         !message
 
             ?   <div className="profile-container">
-                    <div>
+                    <div className="profile-pic-container">
                         <img src={profilePic} alt="profile"/>
                     </div>
-                    <div>
+                    <div className="profile-data-container">
                         <ul>
-                            <li><strong>{company_name}</strong></li>
+                            <li>Название компании: <strong>{company_name}</strong></li>
                             <li>Имя: {user_name}</li>
                             <li>Адрес электронной почты: {user_email}</li>
                             <li>Ваш баланс: {account_balance}</li>
@@ -53,6 +55,7 @@ const Profile = ({records}) => {
                             user_name={user_name}
                             user_email={user_email}
                         />
+                        <ChangePasswordForm />
                     </div>
                 </div>
 

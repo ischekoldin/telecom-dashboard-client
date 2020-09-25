@@ -6,9 +6,11 @@
     width: 100vw;
 }
 
-.login-form-container {
+.warning {
+    position: absolute;
+    left: 40%;
+    top: 20%;
 }
-
 
 .form #password {
     margin-bottom: 0;

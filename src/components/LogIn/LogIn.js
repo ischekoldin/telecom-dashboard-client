@@ -116,6 +116,11 @@ const LogIn = () => {
 
                 response = await axios(CONFIG_LOGIN);
 
+                if (response.data === "password is incorrect") {
+                    setFeedback([...feedback, response.data]);
+                    new Error("password is incorrect");
+                }
+
                 const date = new Date();
                 date.setTime(date.getTime()+(14*24*60*60*1000));
                 document.cookie = `telecom-dashboard-user-email=${emailValue}; expires=${date}; sameSite=lax`;
@@ -182,6 +187,7 @@ const LogIn = () => {
 
 
                 <div className="login-form-container">
+                    {feedback.length > 0 && feedback.map(elem => <p className="warning">{elem}</p>)}
                         <LoginAndRegisterForm
                             isRegisterForm={isRegisterForm}
                             setIsRegisterForm={setIsRegisterForm}

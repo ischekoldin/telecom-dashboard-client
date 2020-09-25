@@ -19,7 +19,7 @@ const Header = () => {
     return (
 
         <header>
-            <p>AT&P</p>
+            <p><strong>AT&P</strong></p>
             <p>{email}</p>
             <button onClick={handleLogout}>Выйти</button>
         </header>

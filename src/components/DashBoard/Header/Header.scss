@@ -1,10 +1,13 @@
+$primary: #2A5885;
+
 header {
 
   :nth-child(2) {
     margin-left: auto;
   }
+  color: #ffffff;
   display: flex;
   width: calc(100% - 1rem);
-  background-color: #dfdfdf;
+  background-color: $primary;
   padding: 0 0.5rem;
 }
