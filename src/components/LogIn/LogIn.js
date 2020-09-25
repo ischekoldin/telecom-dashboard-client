@@ -34,8 +34,7 @@ const LogIn = () => {
         method: "post",
         url: `${ENDPOINT}/login`,
         headers: { "Content-Type": "application/json" },
-        data: { email: emailValue, password: passwordValue, rememberMe: rememberMeValue },
-        withCredentials: true
+        data: { email: emailValue, password: passwordValue, rememberMe: rememberMeValue }
     };
 
     const CONFIG_SIGNUP = {
