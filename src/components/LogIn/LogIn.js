@@ -5,7 +5,6 @@ import axios from "axios";
 
 
 import LoginAndRegisterForm from "./LoginAndRegisterForm/LoginAndRegisterForm";
-import ModalDialogue from "./ModalDialogue/ModalDialogue";
 
 import "./LogIn.scss";
 
@@ -26,7 +25,7 @@ const LogIn = () => {
 
 
     const CONFIG_REFRESH_TOKEN = {
-        method: 'get',
+        method: "get",
         url: `${ENDPOINT}/token`,
         withCredentials: true
     };
@@ -35,24 +34,24 @@ const LogIn = () => {
         method: "post",
         url: `${ENDPOINT}/login`,
         headers: { "Content-Type": "application/json" },
-        data: { name: nameValue, password: passwordValue, rememberMe: rememberMeValue },
+        data: { email: emailValue, password: passwordValue, rememberMe: rememberMeValue },
         withCredentials: true
     };
-
 
     const CONFIG_SIGNUP = {
         method: "post",
         url: `${ENDPOINT}/signup`,
-        data: { email: emailValue, password: passwordValue }
+        data: { name: nameValue, email: emailValue, password: passwordValue }
     };
 
 
 
+
     const handleChange = (event) => {
-        let inputId = event.target.id;
+        let target = event.target.id;
         let value = event.target.value;
 
-        switch (inputId) {
+        switch (target) {
             case "name":  {
                 setNameValue(value);
                 break
@@ -66,7 +65,7 @@ const LogIn = () => {
                 break
             }
             case "repeat-password":  {
-                setPasswordValue(value);
+                setRepeatPasswordValue(value);
                 break
             }
             case "remember-me":  {
@@ -80,13 +79,17 @@ const LogIn = () => {
 
 
     const refreshToken = useCallback (async () => {
+
         try {
+
             return await axios(CONFIG_REFRESH_TOKEN);
+
         } catch (err) {
+
             errors.push({place:"refreshToken function", message: err.message});
         }
-    },[CONFIG_REFRESH_TOKEN, errors]);
 
+    },[CONFIG_REFRESH_TOKEN, errors]);
 
 
     // register or log in, depends on the form mode
@@ -98,27 +101,33 @@ const LogIn = () => {
         if (isRegisterForm) {
 
             response = await axios(CONFIG_SIGNUP);
+
             if (typeof response === "string") {
+
                 setFeedback(...feedback, response);
+
             }
+
             setIsRegisterForm(!isRegisterForm);
 
         } else {
+
             try {
+
                 response = await axios(CONFIG_LOGIN);
 
                 const date = new Date();
                 date.setTime(date.getTime()+(14*24*60*60*1000));
-                document.cookie = `telecom-dashboard-user-name=${nameValue}; expires=${date}; sameSite=lax`;
+                document.cookie = `telecom-dashboard-user-email=${emailValue}; expires=${date}; sameSite=lax`;
 
                 if (rememberMeValue) {
-                    document.cookie = `telecom-dashboard-remember-me; expires=${date}`;
+                    document.cookie = `telecom-dashboard-remember-me=true; expires=${date}`;
                 }
 
 
                 dispatch({
-                    "type": "auth/setUserName",
-                    "payload": nameValue
+                    "type": "auth/setEmail",
+                    "payload": emailValue
                 });
 
                 history.push({
@@ -128,11 +137,15 @@ const LogIn = () => {
                         token: response.data.accessToken,
                     }
                 });
+
             } catch (err) {
+
                 errors.push({place:"handleSubmit function", message: err.message});
+
             }
         }
     };
+
 
 
     const rememberMe = document.cookie
@@ -144,7 +157,7 @@ const LogIn = () => {
 
                     const date = new Date();
                     date.setTime(date.getTime()+(14*24*60*60*1000));
-                    document.cookie = `telecom-dashboard-user-name=${newAccessToken.data.username}; expires=${date}; sameSite=lax`;
+                    document.cookie = `telecom-dashboard-user-email=${newAccessToken.data.email}; expires=${date}; sameSite=lax`;
 
                     history.push({
                         pathname: "/dashboard",
@@ -167,7 +180,6 @@ const LogIn = () => {
     return (
         <div className="login-container">
 
-                {feedback.length > 0 ? <ModalDialogue messages={feedback} /> : null }
 
                 <div className="login-form-container">
                         <LoginAndRegisterForm
@@ -180,6 +192,7 @@ const LogIn = () => {
                             passwordValue={passwordValue}
                             repeatPasswordValue={repeatPasswordValue}
                             rememberMeValue={rememberMeValue}
+                            ENDPOINT={ENDPOINT}
                         />
                 </div>
 

@@ -4,6 +4,34 @@ import PageNavigator from "./PageNavigator";
 
 const Bills = ({records, getSearchVariables}) => {
 
+    const paymentForm = () => {
+
+        return (
+            <>
+                Не оплачен
+                <script src = "https://securepay.tinkoff.ru/html/payForm/js/tinkoff_v2.js" />
+                <form name="TinkoffPayForm" onSubmit="pay(this); return false;">
+                    <input className="tinkoffPayRow" type="hidden" name="terminalkey" value="TinkoffBankTest" />
+                    <input className="tinkoffPayRow" type="hidden" name="frame" value="true" />
+                    <input className="tinkoffPayRow" type="hidden" name="language" value="ru" />
+                    <input className="tinkoffPayRow" type="text" placeholder="Сумма заказа" name="amount" required />
+                    <input className="tinkoffPayRow" type="text" placeholder="Номер заказа" name="order" />
+                    <input className="tinkoffPayRow" type="text" placeholder="Описание заказа"
+                       name="description" />
+                    <input className="tinkoffPayRow" type="text" placeholder="ФИО плательщика"
+                       name="name" />
+                    <input className="tinkoffPayRow" type="text" placeholder="E-mail" name="email" />
+                    <input className="tinkoffPayRow" type="text"
+                       placeholder="Контактный телефон" name="phone" />
+                    <input className="tinkoffPayRow" type="submit" value="Оплатить" />
+                </form>
+            </>
+        )
+
+    };
+
+
+
     console.log(records);
     return (
         <div className="table-container">
@@ -23,7 +51,9 @@ const Bills = ({records, getSearchVariables}) => {
                             <p className="text-small" >{record.created}</p>
                         </td>
                         <td>{record.total_sum} р.</td>
-                        <td>{record.status} </td>
+                        <td>{record.status === 0
+                                ? "Не оплачен"
+                                : "Оплачен"} </td>
                     </tr>)}
                 </tbody>
             </table>

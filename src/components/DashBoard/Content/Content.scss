@@ -9,6 +9,17 @@ table {
   text-align: left;
 }
 
+.text-small {
+  font-size: small;
+}
+
+.text-large {
+  font-size: large;
+}
+
+.text-bold {
+  font-weight: bold;
+}
 
 tr:nth-child(even) {
   background-color: #f2f2f2;
@@ -18,13 +29,15 @@ tr:hover {
   background-color: rgba(4, 185, 176, 0.2);
 }
 
-.text-small {
-  font-size: small;
-}
+
 
 //td {
 //  margin-top: 0.2rem;
 //}
+
+tr {
+  height: 3rem;
+}
 
 td, th {
   text-align: center;
@@ -45,6 +58,7 @@ section {
   height: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .table-container {
@@ -55,13 +69,18 @@ section {
   justify-items: center;
 }
 
+.profile-container {
+  justify-items: center;
+  margin: 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 
 
 .page-navigator {
 
   button {
-
-
 
     :active {
       box-shadow: inset 0 3px 4px hsla(0, 0%, 0%, 0.2);
@@ -106,4 +125,10 @@ section {
     margin: 0 0.1rem;
   }
 
+}
+
+.tinkoffPayRow {
+  display:block;
+  margin:1%;
+  width:160px;
 }

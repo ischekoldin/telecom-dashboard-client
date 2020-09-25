@@ -1,3 +1,16 @@
+
+
+.modal-head {
+  font-weight: bold;
+  padding: 0.5rem 0;
+  background-color: rgba(42, 88, 133, 0.42);
+}
+
+.modal-body {
+  padding: 0.5rem;
+  background-color: rgba(42, 88, 133, 0.09);
+}
+
 .modal-container {
   z-index: 70;
   position: fixed;
@@ -10,13 +23,27 @@
 }
 
 .modal {
+  background-color: #dfdfdf;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
   position: fixed;
+  left: 42%;
   top: 40%;
   margin: auto;
   width: 17em;
   animation: 0.5s modal-popup;
 }
 
+
+@keyframes modal-popup {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 40%;
+  }
+}
 
 @keyframes modal-popup-mobile {
   0% {
@@ -28,6 +55,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .modal {
+    animation: 0.5s modal-popup-mobile;
+  }
   .modal-container {
     top: 20%;
   }

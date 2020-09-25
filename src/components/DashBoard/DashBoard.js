@@ -17,7 +17,8 @@ const DashBoard = ({ location }) => {
     const [token, setToken] = useState((location.state && location.state.token) || "");
     const records = useSelector(state => state.records);
     const isTokenRefreshRequired = useSelector(state => state.tokenRefreshRequired);
-    const username = useSelector(state => state.username);
+    const email = useSelector(state => state.email);
+    const editProfileData = useSelector(state => state.editProfileData);
     const logout = useSelector(state => state.logout);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -42,6 +43,19 @@ const DashBoard = ({ location }) => {
         }
     };
 
+    const CONFIG_EDIT_USER_PROFILE = {
+        method: "post",
+        url: `${ENDPOINT}/dashboard/edit-user-profile`,
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        data: {
+            fieldsToEdit: editProfileData.fieldsToEdit,
+            email: email
+        }
+    };
+
 
     const CONFIG_REFRESH_TOKEN = {
         method: "get",
@@ -51,23 +65,59 @@ const DashBoard = ({ location }) => {
 
 
 
-    const updateUserName = useCallback ( () => {
+    const updateEmail = useCallback ( () => {
 
         // recover user name if lost on refresh
-        if (!username) {
+        if (!email) {
 
-            const cookieUserName = document.cookie
-                .replace(/(?:(?:^|.*;\s*)telecom-dashboard-remember-me\s*=\s*([^;]*).*$)|^.*$/,
+            const cookieEmail = document.cookie
+                .replace(/(?:(?:^|.*;\s*)telecom-dashboard-user-email\s*=\s*([^;]*).*$)|^.*$/,
                     "$1");
 
-            cookieUserName && dispatch({
-                type: "user/set",
-                payload: cookieUserName
+            cookieEmail && dispatch({
+                type: "auth/setEmail",
+                payload: cookieEmail
             });
 
         }
 
-    },[username, dispatch]);
+    },[email, dispatch]);
+
+
+
+
+    const sendProfileChanges = useCallback (async () => {
+
+        if (editProfileData.edit)
+            try {
+
+                const response = await axios(CONFIG_EDIT_USER_PROFILE);
+
+                if (response.data === "profile edit success") {
+
+                    dispatch({
+                        type: "auth/editProfile",
+                        payload: {edit: false, fieldsToEdit: []}
+                    });
+
+                    const fetchRecordsResponse = await axios(CONFIG_FETCH_RECORDS);
+
+                    if (fetchRecordsResponse.data) {
+                        dispatch({
+                            "type": "records/fetch",
+                            "payload": fetchRecordsResponse.data
+                        });
+                    }
+
+                }
+
+
+
+            } catch (err) {
+                console.error(err.message);
+            }
+
+    },[CONFIG_EDIT_USER_PROFILE, editProfileData, dispatch]);
 
 
     const refreshAccessToken = useCallback (async () => {
@@ -128,13 +178,17 @@ const DashBoard = ({ location }) => {
 
 
     useEffect(() => {
+        sendProfileChanges();
+    },[sendProfileChanges]);
+
+    useEffect(() => {
         fetchRecords();
     },[location, fetchRecords]);
 
 
     useEffect(() => {
-        updateUserName();
-    },[updateUserName]);
+        updateEmail();
+    },[updateEmail]);
 
 
     useEffect(() => {
@@ -147,8 +201,8 @@ const DashBoard = ({ location }) => {
 
     const logOut = useCallback(async () => {
 
-        const deleteCookie = (name) => {
-            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+        const deleteCookie = (email) => {
+            document.cookie = email + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
         };
 
         const CONFIG_LOGOUT = {
@@ -162,7 +216,7 @@ const DashBoard = ({ location }) => {
 
         try {
             await axios(CONFIG_LOGOUT);
-            deleteCookie("telecom-dashboard-remember-me");
+            deleteCookie("telecom-dashboard-user-email");
             dispatch({
                 type: "auth/logout",
                 payload: false
