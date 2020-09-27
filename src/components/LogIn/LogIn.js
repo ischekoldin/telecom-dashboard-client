@@ -4,77 +4,29 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 
-import LoginAndRegisterForm from "./LoginAndRegisterForm/LoginAndRegisterForm";
+
+import LoginForm from "./LoginForm/LoginForm";
+import RegisterForm from "./RegisterForm/RegisterForm";
 
 import "./LogIn.scss";
 
 const LogIn = () => {
 
-
     const ENDPOINT = useSelector(state => state.endpoint);
     const dispatch = useDispatch();
-    const [isRegisterForm, setIsRegisterForm] =useState(false);
-    const [nameValue, setNameValue] = useState('');
-    const [emailValue, setEmailValue] = useState('');
-    const [repeatPasswordValue, setRepeatPasswordValue] = useState('');
-    const [passwordValue, setPasswordValue] = useState('');
-    const [rememberMeValue, setRememberMeValue] = useState('');
-    const [feedback, setFeedback] = useState([]);
+    const [isRegisterForm, setIsRegisterForm] = useState(false);
     const history = useHistory();
     let errors = [];
 
+
+    const toggleRegisterForm = () => {
+        setIsRegisterForm(!isRegisterForm);
+    };
 
     const CONFIG_REFRESH_TOKEN = {
         method: "get",
         url: `${ENDPOINT}/token`,
         withCredentials: true
-    };
-
-    const CONFIG_LOGIN = {
-        method: "post",
-        url: `${ENDPOINT}/login`,
-        headers: { "Content-Type": "application/json" },
-        data: { email: emailValue, password: passwordValue, rememberMe: rememberMeValue },
-        withCredentials: true
-    };
-
-    const CONFIG_SIGNUP = {
-        method: "post",
-        url: `${ENDPOINT}/signup`,
-        data: { name: nameValue, email: emailValue, password: passwordValue }
-    };
-
-
-
-
-    const handleChange = (event) => {
-        let target = event.target.id;
-        let value = event.target.value;
-
-        switch (target) {
-            case "name":  {
-                setNameValue(value);
-                break
-            }
-            case "email":  {
-                setEmailValue(value);
-                break
-            }
-            case "password":  {
-                setPasswordValue(value);
-                break
-            }
-            case "repeat-password":  {
-                setRepeatPasswordValue(value);
-                break
-            }
-            case "remember-me":  {
-                setRememberMeValue(!rememberMeValue);
-                break
-            }
-            default:
-        }
-
     };
 
 
@@ -90,66 +42,6 @@ const LogIn = () => {
         }
 
     },[CONFIG_REFRESH_TOKEN, errors]);
-
-
-    // register or log in, depends on the form mode
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        let response;
-
-        if (isRegisterForm) {
-
-            response = await axios(CONFIG_SIGNUP);
-
-            if (typeof response === "string") {
-
-                setFeedback(...feedback, response);
-
-            }
-
-            setIsRegisterForm(!isRegisterForm);
-
-        } else {
-
-            try {
-
-                response = await axios(CONFIG_LOGIN);
-
-                if (response.data === "password is incorrect") {
-                    setFeedback([...feedback, response.data]);
-                    new Error("password is incorrect");
-                }
-
-                const date = new Date();
-                date.setTime(date.getTime()+(14*24*60*60*1000));
-                document.cookie = `telecom-dashboard-user-email=${emailValue}; expires=${date}; sameSite=lax`;
-
-                if (rememberMeValue) {
-                    document.cookie = `telecom-dashboard-remember-me=true; expires=${date}`;
-                }
-
-
-                dispatch({
-                    "type": "auth/setEmail",
-                    "payload": emailValue
-                });
-
-                history.push({
-                    pathname: "/dashboard",
-                    search: "s=profile",
-                    state: {
-                        token: response.data.accessToken,
-                    }
-                });
-
-            } catch (err) {
-
-                errors.push({place:"handleSubmit function", message: err.message});
-
-            }
-        }
-    };
 
 
 
@@ -187,19 +79,19 @@ const LogIn = () => {
 
 
                 <div className="login-form-container">
-                    {feedback.length > 0 && feedback.map(elem => <p className="warning">{elem}</p>)}
-                        <LoginAndRegisterForm
-                            isRegisterForm={isRegisterForm}
-                            setIsRegisterForm={setIsRegisterForm}
-                            handleChange={handleChange}
-                            handleSubmit={handleSubmit}
-                            nameValue={nameValue}
-                            emailValue={emailValue}
-                            passwordValue={passwordValue}
-                            repeatPasswordValue={repeatPasswordValue}
-                            rememberMeValue={rememberMeValue}
+                    {isRegisterForm
+                    ?   <RegisterForm
                             ENDPOINT={ENDPOINT}
+                            dispatch={dispatch}
+                            history={history}
+                            toggleRegisterForm={toggleRegisterForm}
                         />
+                    :   <LoginForm
+                            ENDPOINT={ENDPOINT}
+                            dispatch={dispatch}
+                            history={history}
+                            toggleRegisterForm={toggleRegisterForm}
+                        />}
                 </div>
 
         </div>

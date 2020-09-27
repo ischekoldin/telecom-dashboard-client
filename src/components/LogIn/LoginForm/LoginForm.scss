@@ -1,0 +1,92 @@
+$primary: #2A5885;
+$secondary: #99b0c6;
+
+
+
+form input[type="text"], input[type="email"], input[type="password"] {
+  margin-top: 0.3rem;
+}
+
+
+form {
+  background-color: #dfdfdf;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 17rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 14px #7c7c7c;
+}
+
+.form-head {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.5rem 0;
+  background-color: rgba(42, 88, 133, 0.42);
+}
+
+.form-body {
+  display: inherit;
+  flex-direction: inherit;
+  border-radius: inherit;
+  padding: 0.5rem;
+  background-color: rgba(42, 88, 133, 0.09);
+}
+
+.button-group {
+
+  button {
+    margin: 0.1rem 0
+  }
+
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-group-row {
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-content: center;
+}
+
+
+form input[type=password], input[type=email], input[type=text] {
+  height: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.form label {
+  padding-bottom: 0.5rem;
+}
+
+.form input[type=checkbox] {
+  flex: 1 0 20%;
+}
+
+form button  {
+
+  margin: 0 0.3rem;
+  padding: 0.3rem 1rem;
+  border: 0;
+  border-radius: 0.317rem;
+  background-color: #4a76a8;
+  color: #f5f5fd;
+  cursor: pointer;
+  font-size: 1rem;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+
+}
+
+form button:hover {
+  background-color: #466392;
+}

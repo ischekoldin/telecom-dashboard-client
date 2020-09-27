@@ -12,9 +12,6 @@
     top: 20%;
 }
 
-.form #password {
-    margin-bottom: 0;
-}
 
 @media screen and (max-width: 768px) {
     .sideBar-col {
@@ -36,5 +33,3 @@
         height: fit-content;
     }
 }
-
-@import "LoginAndRegisterForm/LoginAndRegisterForm";

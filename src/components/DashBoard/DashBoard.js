@@ -201,8 +201,8 @@ const DashBoard = ({ location }) => {
 
     const logOut = useCallback(async () => {
 
-        const deleteCookie = (email) => {
-            document.cookie = email + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+        const deleteCookie = (name) => {
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
         };
 
         const CONFIG_LOGOUT = {
@@ -217,6 +217,8 @@ const DashBoard = ({ location }) => {
         try {
             await axios(CONFIG_LOGOUT);
             deleteCookie("telecom-dashboard-user-email");
+            deleteCookie("telecom-dashboard-remember-me");
+            deleteCookie("refreshToken");
             dispatch({
                 type: "auth/logout",
                 payload: false
