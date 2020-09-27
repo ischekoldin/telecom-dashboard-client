@@ -7,9 +7,9 @@ import "./LoginForm.scss";
 const LoginForm = ({ENDPOINT, dispatch, history, toggleRegisterForm}) => {
 
 
-    const handleSubmit = async (data) => {
+    const handleSubmit = async (values, {setErrors}) => {
 
-        const { email, password, rememberMe } = data;
+        const { email, password, rememberMe } = values;
 
         const CONFIG_LOGIN = {
             method: "post",
@@ -23,7 +23,7 @@ const LoginForm = ({ENDPOINT, dispatch, history, toggleRegisterForm}) => {
         const response = await axios(CONFIG_LOGIN);
 
         if (response.data === "password is incorrect") {
-            new Error("password is incorrect");
+            setErrors({password: "Пароль неверный"});
         }
 
         const date = new Date();
@@ -55,7 +55,7 @@ const LoginForm = ({ENDPOINT, dispatch, history, toggleRegisterForm}) => {
     return (
         <Formik
             initialValues={{ email: "", password: "", rememberMe: false }}
-            onSubmit={data => handleSubmit(data)}
+            onSubmit={handleSubmit}
         >
 
             {({ handleSubmit, isSubmitting }) => (

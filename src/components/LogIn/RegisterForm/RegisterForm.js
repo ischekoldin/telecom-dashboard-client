@@ -11,9 +11,9 @@ const RegisterForm = (
     }) => {
 
 
-    const handleSubmit = async (data) => {
+    const handleSubmit = async (values, {setErrors}) => {
 
-        const { name, email, password } = data;
+        const { name, email, password } = values;
 
         const CONFIG_SIGNUP = {
             method: "post",
@@ -22,13 +22,16 @@ const RegisterForm = (
         };
 
         const response = await axios(CONFIG_SIGNUP);
+
+        if(response.data.error) setErrors({email: "Польщователь с таким email уже существует"});
+
         toggleRegisterForm();
 
     };
 
 
     return (
-        <Formik initialValues={{ name: "", email: "", password: "", repeatPassword: "" }} onSubmit={data => handleSubmit(data)}>
+        <Formik initialValues={{ name: "", email: "", password: "", repeatPassword: "" }} onSubmit={handleSubmit}>
 
             {({ handleSubmit, isSubmitting }) => (
                 <form onSubmit={handleSubmit}>
