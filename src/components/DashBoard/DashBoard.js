@@ -111,13 +111,11 @@ const DashBoard = ({ location }) => {
 
                 }
 
-
-
             } catch (err) {
                 console.error(err.message);
             }
 
-    },[CONFIG_EDIT_USER_PROFILE, editProfileData, dispatch]);
+    },[CONFIG_EDIT_USER_PROFILE, CONFIG_FETCH_RECORDS, editProfileData, dispatch]);
 
 
     const refreshAccessToken = useCallback (async () => {

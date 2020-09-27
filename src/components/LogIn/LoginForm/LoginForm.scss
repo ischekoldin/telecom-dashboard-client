@@ -2,7 +2,6 @@ $primary: #2A5885;
 $secondary: #99b0c6;
 
 
-
 form input[type="text"], input[type="email"], input[type="password"] {
   margin-top: 0.3rem;
 }
@@ -89,4 +88,9 @@ form button  {
 
 form button:hover {
   background-color: #466392;
+}
+
+.warning {
+  background-color: #f7f0d6;
+  color: crimson;
 }
