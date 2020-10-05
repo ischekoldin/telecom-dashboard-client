@@ -1,17 +1,15 @@
-# UnNotate Client
+# Telecom Dashboard Client
 
-UnNotate client is a frontend for UnNotate note taking app. 
+Telecom Dashboard client is a frontend for Telecom Dashboard, a demo client area of a telecommunications company. 
 The frontend is built using:
  * React
  * Redux
- * Bootstrap
- * Quill 
 
 ## Installation
 
-git clone https://github.com/ischekoldin/unnotate-client.git
+git clone https://github.com/ischekoldin/telecom-dashboard-client.git
 
-[Demo](https://unnotate-client.herokuapp.com)
+[Demo](https://telecom-dashboard-client.herokuapp.com)
 Heroku servers go idle after 30 minutes of inactivity. So the first start of frontend and backend is slow.
 
 ## Usage
